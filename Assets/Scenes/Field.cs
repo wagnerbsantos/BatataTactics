@@ -13,23 +13,25 @@ namespace Scenes
         {
             grid = new Grid(width, length);
             _position = transform.position;
-            grid.SetValue(2,0, new Node(true, 1));
-            grid.SetValue(2,1, new Node(true, 1));
-            grid.SetValue(3,1, new Node(true, 1));
-            grid.SetValue(3,2, new Node(true, 1));
-            grid.SetValue(3,3, new Node(true, 1));
-            grid.SetValue(4,3, new Node(true, 1));
-            grid.SetValue(4,4, new Node(true, 1));
+            var river = new Node(1, "River");
+            var mountain = new Node(2, "Mountain");
+            grid.SetValue(2,0, river);
+            grid.SetValue(2,1, river);
+            grid.SetValue(3,1, river);
+            grid.SetValue(3,2, river);
+            grid.SetValue(3,3, river);
+            grid.SetValue(4,3, river);
+            grid.SetValue(4,4, river);
             
-            grid.SetValue(3,0, new Node(true, 2));
-            grid.SetValue(4,0, new Node(true, 2));
-            grid.SetValue(4,1, new Node(true, 2));
-            grid.SetValue(4,2, new Node(true, 2));
+            grid.SetValue(3,0, mountain);
+            grid.SetValue(4,0, mountain);
+            grid.SetValue(4,1, mountain);
+            grid.SetValue(4,2, mountain);
         }
 
         public int GetPrefabIndex(int x, int y)
         {
-            return grid.GetNode(x, y).value;
+            return grid.GetNode(x, y).GetPrefabIndex();
         }
 
         private void Update()

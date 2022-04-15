@@ -4,36 +4,35 @@ namespace Scenes
 {
     public class Grid
     {
-        private int width;
-        private int length;
-        private Node[,] gridArray;
+        private int _width;
+        private int _length;
+        private Node[,] _gridArray;
 
         public Grid(int width, int length)
         {
-            this.width = width;
-            this.length = length;
+            _width = width;
+            _length = length;
 
-            gridArray = new Node[width, length];
-            draw();
+            _gridArray = new Node[width, length];
+            InitializeArray();
         }
 
-        public void draw()
+        private void InitializeArray()
         {
-            for (var x = 0; x < width; x++)
+            for (var x = 0; x < _width; x++)
             {
-                for (var y = 0; y < length; y++)
+                for (var y = 0; y < _length; y++)
                 {
-                    gridArray[x, y] = new Node(true, 3);
+                    _gridArray[x, y] = new Node(0, "Default");
                 }
             }
         }
 
         public Grid(Node[,] nodeArray)
         {
-            this.width = nodeArray.GetLength(0);
-            this.length = nodeArray.GetLength(1);
-            gridArray = nodeArray;
-            draw();
+            _width = nodeArray.GetLength(0);
+            _length = nodeArray.GetLength(1);
+            _gridArray = nodeArray;
         }
 
         private Vector3 GetWorldPosition(int x, int y, float cellSize = 1)
@@ -43,7 +42,7 @@ namespace Scenes
 
         public Node GetNode(int x, int y)
         {
-            return gridArray[x, y];
+            return _gridArray[x, y];
         }
 
         private void GetXY(Vector3 worldPosition, out int x, out int y, float cellsize = 1)
@@ -54,9 +53,9 @@ namespace Scenes
 
         public void SetValue(int x, int y, Node node)
         {
-            if (x >= 0 && y >= 0 && x < width && y < length)
+            if (x >= 0 && y >= 0 && x < _width && y < _length)
             {
-                gridArray[x, y] = node;
+                _gridArray[x, y] = node;
             }
         }
 
