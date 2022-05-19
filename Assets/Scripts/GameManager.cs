@@ -21,17 +21,19 @@ public class GameManager : MonoBehaviour
     private GameObject _fieldCursor;
     private int _width;
     private int _length;
-    private string[,] _map;
 
     private void Awake()
     {
-        _map = new string[_width, _length];
         _prefabProvider = prefabProvider.GetComponent<IPrefabProvider>();
         _fieldCursor = Instantiate(fieldCursorPrefab, new Vector3(XOffset, YOffset+1, ZOffset), Quaternion.identity);
+        FieldCursor fieldCursor = _fieldCursor.GetComponent<FieldCursor>();
         _width = field.getWidth();
         _length = field.getLenght();
+        fieldCursor.SetMapSize(_width-1, _length-1);
+        fieldCursor.SetStartingPosition(0, 0);
         _tileArray = new GameObject[_width, _length];
-        gameControls.SetControlledCharacter(_fieldCursor.GetComponent<FieldCursor>());
+        gameControls.SetFieldCursor(fieldCursor);
+        gameControls.SetField(field);
     }
 
     void Start()
@@ -40,7 +42,7 @@ public class GameManager : MonoBehaviour
         {
             for (int y = 0; y < _length; y++)
             {
-                _tileArray[x, y] = newTile(x, 0, y, _prefabProvider.GetPrefabByIndex(field.GetPrefabIndex(x, y)), Quaternion.identity);
+                _tileArray[x, y] = newTile(x, 0, y, _prefabProvider.GetPrefabByIndex(field.GetNode(x, y).GetPrefabIndex()), Quaternion.identity);
             }
         }
     }

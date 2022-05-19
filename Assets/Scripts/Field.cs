@@ -13,7 +13,7 @@ namespace Scenes
         {
             grid = new Grid(width, length);
             _position = transform.position;
-            var river = new Node(1, "River");
+            var river = new Node(1, "River", false, true, true);
             var mountain = new Node(2, "Mountain");
             grid.SetValue(2,0, river);
             grid.SetValue(2,1, river);
@@ -29,9 +29,9 @@ namespace Scenes
             grid.SetValue(4,2, mountain);
         }
 
-        public int GetPrefabIndex(int x, int y)
+        public IMapNode GetNode(int x, int y)
         {
-            return grid.GetNode(x, y).GetPrefabIndex();
+            return grid.GetNode(x, y);
         }
 
         private void Update()
