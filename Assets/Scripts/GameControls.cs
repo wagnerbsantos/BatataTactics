@@ -6,10 +6,16 @@ namespace Scenes
     public class GameControls : MonoBehaviour
     {
         private FieldCursor _controlledFieldCursor;
+        private Field _field;
 
-        public void SetControlledCharacter(FieldCursor ch)
+        public void SetFieldCursor(FieldCursor ch)
         {
             _controlledFieldCursor = ch;
+        }
+
+        public void SetField(Field field)
+        {
+            _field = field;
         }
 
         private void Update()
@@ -29,6 +35,12 @@ namespace Scenes
             else if (Input.GetKeyDown(KeyCode.D))
             {
                 _controlledFieldCursor.MoveEast();
+            }
+            else if (Input.GetKeyDown(KeyCode.Space))
+            {
+                int x = _controlledFieldCursor.getXPos();
+                int z = _controlledFieldCursor.getZPos();
+                Debug.Log(_field.GetNode(x, z).IsSwimmable());
             }
         }
     }
