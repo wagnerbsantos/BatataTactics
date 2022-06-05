@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Scenes;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 
 public class GameManager : MonoBehaviour
@@ -11,10 +12,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject prefabProvider;
     [SerializeField] private GameObject fieldCursorPrefab;
     [SerializeField] private GameControls gameControls;
+    [SerializeField] private GameObject cameraPrefab;
     [SerializeField] private GameObject prefab;
     [SerializeField] private Field field;
     private IPrefabProvider _prefabProvider;
     private GameObject[,] _tileArray;
+    private CharCamera _camera;
     private const float XOffset = 0f;
     private const float YOffset = 0f;
     private const float ZOffset = 0f;
@@ -26,6 +29,7 @@ public class GameManager : MonoBehaviour
     {
         _prefabProvider = prefabProvider.GetComponent<IPrefabProvider>();
         _fieldCursor = Instantiate(fieldCursorPrefab, new Vector3(XOffset, YOffset+1, ZOffset), Quaternion.identity);
+        _camera = Instantiate(cameraPrefab, new Vector3(), Quaternion.identity).GetComponent<CharCamera>();
         FieldCursor fieldCursor = _fieldCursor.GetComponent<FieldCursor>();
         _width = field.getWidth();
         _length = field.getLenght();
@@ -33,6 +37,7 @@ public class GameManager : MonoBehaviour
         fieldCursor.SetStartingPosition(0, 0);
         _tileArray = new GameObject[_width, _length];
         gameControls.SetFieldCursor(fieldCursor);
+        gameControls.SetCharCamera(_camera);
         gameControls.SetField(field);
     }
 
