@@ -5,7 +5,7 @@ public class CharCamera : MonoBehaviour
 {
     private Camera _camera;
     private Transform _focus;
-    private int _zoom = 5;
+    private int _zoom = 8;
     private float _inclination = 0.35f;
     private float _distance = 20;
     private float _speed = 5;
@@ -36,7 +36,7 @@ public class CharCamera : MonoBehaviour
     void Awake()
     {
         _camera = GetComponent<Camera>();
-        _camera.orthographicSize = _zoom;
+        _camera.orthographicSize = _zoom* 0.5f;
         _focus = transform;
     }
     void Start()

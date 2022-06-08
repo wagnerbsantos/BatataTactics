@@ -9,13 +9,15 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private GameObject prefabProvider;
+    [SerializeField] private GameObject terrainProvider;
+    [SerializeField] private GameObject entityProvider;
     [SerializeField] private GameObject fieldCursorPrefab;
     [SerializeField] private GameControls gameControls;
     [SerializeField] private GameObject cameraPrefab;
     [SerializeField] private GameObject prefab;
     [SerializeField] private Field field;
-    private IPrefabProvider _prefabProvider;
+    private IPrefabProvider _terrainProvider;
+    private IPrefabProvider _entityProvider;
     private GameObject[,] _tileArray;
     private CharCamera _camera;
     private const float XOffset = 0f;
@@ -27,7 +29,11 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        _prefabProvider = prefabProvider.GetComponent<IPrefabProvider>();
+        _terrainProvider = terrainProvider.GetComponent<IPrefabProvider>();
+        _entityProvider = entityProvider.GetComponent<IPrefabProvider>();
+        var player = Instantiate(_entityProvider.GetPrefabByIndex(0), new Position(1, 1, 0).getVector3(), Quaternion.identity).GetComponent<Entity>();
+        player.MoveTo(new Position(2, 2, 0), Vector3.forward);
+        
         _fieldCursor = Instantiate(fieldCursorPrefab, new Vector3(XOffset, YOffset+1, ZOffset), Quaternion.identity);
         _camera = Instantiate(cameraPrefab, new Vector3(), Quaternion.identity).GetComponent<CharCamera>();
         FieldCursor fieldCursor = _fieldCursor.GetComponent<FieldCursor>();
@@ -37,6 +43,7 @@ public class GameManager : MonoBehaviour
         fieldCursor.SetStartingPosition(0, 0);
         _tileArray = new GameObject[_width, _length];
         gameControls.SetFieldCursor(fieldCursor);
+        gameControls.SetPlayer(player);
         gameControls.SetCharCamera(_camera);
         gameControls.SetField(field);
     }
@@ -47,7 +54,7 @@ public class GameManager : MonoBehaviour
         {
             for (int y = 0; y < _length; y++)
             {
-                _tileArray[x, y] = newTile(x, 0, y, _prefabProvider.GetPrefabByIndex(field.GetNode(x, y).GetPrefabIndex()), Quaternion.identity);
+                _tileArray[x, y] = newTile(x, 0, y, _terrainProvider.GetPrefabByIndex(field.GetNode(x, y).GetPrefabIndex()), Quaternion.identity);
             }
         }
     }
