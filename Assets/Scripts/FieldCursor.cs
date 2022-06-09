@@ -59,4 +59,9 @@ public class FieldCursor : MonoBehaviour
     {
         return _z;
     }
+
+    public Position GetPosition()
+    {
+        return new Position(_x, _z, 0);
+    }
 }

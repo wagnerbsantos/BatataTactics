@@ -7,11 +7,18 @@ namespace Scenes
     {
         private FieldCursor _controlledFieldCursor;
         private CharCamera _charCamera;
+        private Entity _player;
         private Field _field;
+        private Entity _selected = null;
 
         public void SetFieldCursor(FieldCursor ch)
         {
             _controlledFieldCursor = ch;
+        }
+
+        public void SetPlayer(Entity player)
+        {
+            _player = player;
         }
 
         public void SetCharCamera(CharCamera cam)
@@ -53,9 +60,15 @@ namespace Scenes
             }
             else if (Input.GetKeyDown(KeyCode.Space))
             {
-                int x = _controlledFieldCursor.getXPos();
-                int z = _controlledFieldCursor.getZPos();
-                Debug.Log(_field.GetNode(x, z).IsSwimmable());
+                Position clickPos = _controlledFieldCursor.GetPosition();
+                if (_selected == null && clickPos.getX() == _player.getPosition().getX() && clickPos.getZ() == _player.getPosition().getZ())
+                    _selected = _player;
+                else if (_selected != null)
+                {
+                    _selected.MoveTo(clickPos, Vector3.forward);
+                    _selected = null;
+                }
+                //Debug.Log(_field.GetNode(x, z).IsSwimmable());
             }
             _charCamera.SetFocus(_controlledFieldCursor.transform);
         }
