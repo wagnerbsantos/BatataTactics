@@ -50,12 +50,12 @@ public class FieldCursor : MonoBehaviour
         _zSize = z;
     }
 
-    public int getXPos()
+    public int GetXPos()
     {
         return _x;
     }
 
-    public int getZPos()
+    public int GetZPos()
     {
         return _z;
     }

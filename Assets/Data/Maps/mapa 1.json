@@ -1,0 +1,146 @@
+{
+    "nodeList": [
+        {
+            "walkable": true,
+            "flyable": false,
+            "swimmable": false,
+            "climbable": false,
+            "treasure": {},
+            "prefabIndex": 0,
+            "prefabName": "Default"
+        },
+        {
+            "walkable": true,
+            "flyable": true,
+            "swimmable": false,
+            "climbable": false,
+            "treasure": {},
+            "prefabIndex": 1,
+            "prefabName": "Grass"
+        },
+        {
+            "walkable": false,
+            "flyable": true,
+            "swimmable": false,
+            "climbable": false,
+            "treasure": {},
+            "prefabIndex": 2,
+            "prefabName": "River"
+        },
+        {
+            "walkable": true,
+            "flyable": false,
+            "swimmable": false,
+            "climbable": false,
+            "treasure": {},
+            "prefabIndex": 3,
+            "prefabName": "Mountain"
+        }
+    ],
+    "grid": {
+        "gridArray": [
+            {
+                "terrainId": 1,
+                "height": 0
+            },
+            {
+                "terrainId": 1,
+                "height": 0
+            },
+            {
+                "terrainId": 1,
+                "height": 0
+            },
+            {
+                "terrainId": 1,
+                "height": 0
+            },
+            {
+                "terrainId": 1,
+                "height": 0
+            },
+            {
+                "terrainId": 1,
+                "height": 0
+            },
+            {
+                "terrainId": 1,
+                "height": 0
+            },
+            {
+                "terrainId": 1,
+                "height": 0
+            },
+            {
+                "terrainId": 1,
+                "height": 0
+            },
+            {
+                "terrainId": 1,
+                "height": 0
+            },
+            {
+                "terrainId": 2,
+                "height": 0
+            },
+            {
+                "terrainId": 2,
+                "height": 0
+            },
+            {
+                "terrainId": 2,
+                "height": 0
+            },
+            {
+                "terrainId": 1,
+                "height": 0
+            },
+            {
+                "terrainId": 1,
+                "height": 0
+            },
+            {
+                "terrainId": 3,
+                "height": 0
+            },
+            {
+                "terrainId": 3,
+                "height": 0
+            },
+            {
+                "terrainId": 2,
+                "height": 0
+            },
+            {
+                "terrainId": 2,
+                "height": 0
+            },
+            {
+                "terrainId": 1,
+                "height": 0
+            },
+            {
+                "terrainId": 3,
+                "height": 0
+            },
+            {
+                "terrainId": 3,
+                "height": 0
+            },
+            {
+                "terrainId": 3,
+                "height": 0
+            },
+            {
+                "terrainId": 2,
+                "height": 0
+            },
+            {
+                "terrainId": 1,
+                "height": 0
+            }
+        ],
+        "width": 5,
+        "length": 5
+    }
+}

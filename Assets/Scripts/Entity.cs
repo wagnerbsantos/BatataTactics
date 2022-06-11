@@ -17,22 +17,8 @@ public class Entity: MonoBehaviour
         return true;
     }
 
-    public Position getPosition()
+    public Position GetPosition()
     {
         return _pos;
-    }
-    private void Awake()
-    {
-        //throw new NotImplementedException();
-    }
-
-    private void Start()
-    {
-        //throw new NotImplementedException();
-    }
-
-    private void Update()
-    {
-        //throw new NotImplementedException();
     }
 }
