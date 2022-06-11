@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Scenes
+namespace Scripts
 {
     public class Utils
     {

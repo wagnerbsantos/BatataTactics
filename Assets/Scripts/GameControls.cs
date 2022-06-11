@@ -1,76 +1,76 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Scenes
+public class GameControls : MonoBehaviour
 {
-    public class GameControls : MonoBehaviour
+    private FieldCursor _controlledFieldCursor;
+    private CharCamera _charCamera;
+    private Entity _player;
+    private Map _map;
+    private Entity _selected = null;
+
+    public void SetFieldCursor(FieldCursor ch)
     {
-        private FieldCursor _controlledFieldCursor;
-        private CharCamera _charCamera;
-        private Entity _player;
-        private Field _field;
-        private Entity _selected = null;
+        _controlledFieldCursor = ch;
+    }
 
-        public void SetFieldCursor(FieldCursor ch)
+    public void SetPlayer(Entity player)
+    {
+        _player = player;
+    }
+
+    public void SetCharCamera(CharCamera cam)
+    {
+        _charCamera = cam;
+    }
+
+    public void SetField(Map map)
+    {
+        _map = map;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            _controlledFieldCursor = ch;
+            _controlledFieldCursor.MoveNorth();
         }
-
-        public void SetPlayer(Entity player)
+        else if (Input.GetKeyDown(KeyCode.A))
         {
-            _player = player;
+            _controlledFieldCursor.MoveWest();
         }
-
-        public void SetCharCamera(CharCamera cam)
+        else if (Input.GetKeyDown(KeyCode.S))
         {
-            _charCamera = cam;
+            _controlledFieldCursor.MoveSouth();
         }
-        
-
-        public void SetField(Field field)
+        else if (Input.GetKeyDown(KeyCode.D))
         {
-            _field = field;
+            _controlledFieldCursor.MoveEast();
         }
-
-        private void Update()
+        else if (Input.GetKeyDown(KeyCode.R))
         {
-            if (Input.GetKeyDown(KeyCode.W))
+            _charCamera.ZoomUp();
+        }
+        else if (Input.GetKeyDown(KeyCode.F))
+        {
+            _charCamera.ZoomDown();
+        }
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            var clickPos = _controlledFieldCursor.GetPosition();
+            if (_selected == null && clickPos.getX() == _player.GetPosition().getX() && clickPos.getZ() == _player.GetPosition().getZ())
+                _selected = _player;
+            else if (_selected != null)
             {
-                _controlledFieldCursor.MoveNorth();
-            }
-            else if (Input.GetKeyDown(KeyCode.A))
-            {
-                _controlledFieldCursor.MoveWest();
-            }
-            else if (Input.GetKeyDown(KeyCode.S))
-            {
-                _controlledFieldCursor.MoveSouth();
-            }
-            else if (Input.GetKeyDown(KeyCode.D))
-            {
-                _controlledFieldCursor.MoveEast();
-            }
-            else if (Input.GetKeyDown(KeyCode.R))
-            {
-                _charCamera.ZoomUp();
-            }
-            else if (Input.GetKeyDown(KeyCode.F))
-            {
-                _charCamera.ZoomDown();
-            }
-            else if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Position clickPos = _controlledFieldCursor.GetPosition();
-                if (_selected == null && clickPos.getX() == _player.getPosition().getX() && clickPos.getZ() == _player.getPosition().getZ())
-                    _selected = _player;
-                else if (_selected != null)
+                if (_map.GetNode(clickPos).IsWalkable())
                 {
+                    //TODO and not occupied.
+                    //In range
                     _selected.MoveTo(clickPos, Vector3.forward);
-                    _selected = null;
                 }
-                //Debug.Log(_field.GetNode(x, z).IsSwimmable());
+                
+                _selected = null;
             }
-            _charCamera.SetFocus(_controlledFieldCursor.transform);
         }
+        _charCamera.SetFocus(_controlledFieldCursor.transform);
     }
 }

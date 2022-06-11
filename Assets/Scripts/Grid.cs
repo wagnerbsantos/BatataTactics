@@ -1,71 +1,64 @@
-﻿using UnityEngine;
+﻿using System;
+using Scripts;
+using UnityEngine;
 
-namespace Scenes
+[Serializable]
+public class Grid
 {
-    public class Grid
+    [SerializeField]
+    private Cell[] gridArray;
+
+        
+    [SerializeField]
+    private int width;
+    [SerializeField]
+    private int length;
+
+    public Grid(int width, int length)
     {
-        private int _width;
-        private int _length;
-        private Node[,] _gridArray;
+        gridArray = new Cell[width * length];
+        this.width = width;
+        this.length = length;
+        InitializeArray();
+    }
+        
+    public Grid(Cell[] gridArray)
+    {
+        gridArray = gridArray;
+    }
 
-        public Grid(int width, int length)
+    public int GetWidth()
+    {
+        return width;
+    }
+        
+    public int GetLength()
+    {
+        return length;
+    }
+
+    private void InitializeArray()
+    {
+        var defaultCell = new Cell(0, 0);
+        for (var x = 0; x < width; x++)
         {
-            _width = width;
-            _length = length;
-
-            _gridArray = new Node[width, length];
-            InitializeArray();
-        }
-
-        private void InitializeArray()
-        {
-            for (var x = 0; x < _width; x++)
+            for (var z = 0; z < length; z++)
             {
-                for (var y = 0; y < _length; y++)
-                {
-                    _gridArray[x, y] = new Node(0, "Default");
-                }
+                gridArray[x*width + z] = defaultCell ;
             }
         }
+    }
 
-        public Grid(Node[,] nodeArray)
-        {
-            _width = nodeArray.GetLength(0);
-            _length = nodeArray.GetLength(1);
-            _gridArray = nodeArray;
-        }
-
-        private Vector3 GetWorldPosition(int x, int y, float cellSize = 1)
-        {
-            return new Vector3(x , 0, y) * cellSize;
-        }
-
-        public Node GetNode(int x, int y)
-        {
-            return _gridArray[x, y];
-        }
-
-        private void GetXY(Vector3 worldPosition, out int x, out int y, float cellsize = 1)
-        {
-            x = Mathf.FloorToInt(worldPosition.x / cellsize);
-            y = Mathf.FloorToInt(worldPosition.z / cellsize)+1;
-        }
-
-        public void SetValue(int x, int y, Node node)
-        {
-            if (x >= 0 && y >= 0 && x < _width && y < _length)
-            {
-                _gridArray[x, y] = node;
-            }
-        }
-
-        public void SetValue(Vector3 worldPosition, Node node)
-        {
-            GetXY(worldPosition, out var x, out var y);
-            SetValue(x, y, node);
-        }
+    public Cell GetCell(int x, int z)
+    {
+        return gridArray[x*width + z];
+    }
         
-        
-        
+    public void SetValue(int x, int z, int nodeId, int height)
+    {
+        if (x >= 0 && z >= 0 && x < width && z < length)
+        {
+            gridArray[x*width + z] = new Cell(nodeId, height);
+        }
     }
 }

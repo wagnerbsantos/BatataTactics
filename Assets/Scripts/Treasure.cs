@@ -1,5 +1,8 @@
-﻿namespace Scenes
+﻿using System;
+
+namespace Scripts
 {
+    [Serializable]
     public class Treasure
     {
         
